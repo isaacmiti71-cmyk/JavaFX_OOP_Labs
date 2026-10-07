@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.studentservices.controller.StudentController"
+            stylesheets="@../css/styles.css"
+            prefHeight="650.0" prefWidth="1020.0" styleClass="root-pane">
+
+    <!-- TOP SECTION: HEADER & ANNOUNCEMENT BANNER -->
+    <top>
+        <VBox spacing="0">
+            <!-- Main Title Banner -->
+            <HBox alignment="CENTER_LEFT" spacing="15" styleClass="header-bar">
+                <padding>
+                    <Insets top="16" right="24" bottom="16" left="24"/>
+                </padding>
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Student Services Desktop App" styleClass="app-title"/>
+                    <Label text="Feature: Register Student | Isaac Miti (202509238) | ICT261 | Lecturer: Mr. E. Nyirenda"
+                           styleClass="app-subtitle"/>
+                </VBox>
+                <Label text="Mulungushi University" styleClass="university-badge"/>
+            </HBox>
+
+            <!-- Campus Announcement Banner -->
+            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="announcement-bar">
+                <padding>
+                    <Insets top="8" right="24" bottom="8" left="24"/>
+                </padding>
+                <Label fx:id="announcementLabel" text="Loading announcements..." styleClass="announcement-text" HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- CENTER SECTION: FORM ON LEFT, TABLEVIEW ON RIGHT -->
+    <center>
+        <HBox spacing="20">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- LEFT FORM CARD -->
+            <VBox spacing="14" prefWidth="380" maxWidth="400" styleClass="card-pane">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+
+                <Label text="Register New Student" styleClass="section-title"/>
+                <Label text="Enter student details below. All fields are required." styleClass="section-subtitle"/>
+                <Separator/>
+
+                <!-- Student ID Field -->
+                <VBox spacing="5">
+                    <Label text="Student ID (9 digits):" styleClass="field-label"/>
+                    <TextField fx:id="studentIdField" promptText="e.g. 202509238" styleClass="text-input"/>
+                    <Label text="Must be exactly 9 numeric digits" styleClass="helper-text"/>
+                </VBox>
+
+                <!-- Full Name Field -->
+                <VBox spacing="5">
+                    <Label text="Full Name:" styleClass="field-label"/>
+                    <TextField fx:id="fullNameField" promptText="e.g. Isaac Miti" styleClass="text-input"/>
+                </VBox>
+
+                <!-- Email Field -->
+                <VBox spacing="5">
+                    <Label text="Student Email:" styleClass="field-label"/>
+                    <TextField fx:id="emailField" promptText="e.g. imiti@mu.ac.zm" styleClass="text-input"/>
+                </VBox>
+
+                <!-- Programme Dropdown -->
+                <VBox spacing="5">
+                    <Label text="Academic Programme:" styleClass="field-label"/>
+                    <ComboBox fx:id="programmeComboBox" promptText="-- Select Programme --" maxWidth="Infinity" styleClass="combo-box"/>
+                </VBox>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <!-- Action Buttons -->
+                <HBox spacing="12" alignment="CENTER_RIGHT">
+                    <Button fx:id="btnClear" text="Clear Form" onAction="#handleClearForm" styleClass="button-secondary"/>
+                    <Button fx:id="btnRegister" text="Register Student" onAction="#handleRegisterStudent" styleClass="button-primary"/>
+                </HBox>
+            </VBox>
+
+            <!-- RIGHT TABLEVIEW CARD -->
+            <VBox spacing="12" HBox.hgrow="ALWAYS" styleClass="card-pane">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <VBox spacing="3" HBox.hgrow="ALWAYS">
+                        <Label text="Registered Students" styleClass="section-title"/>
+                        <Label text="Real-time list loaded from embedded H2 database" styleClass="section-subtitle"/>
+                    </VBox>
+                    <Label fx:id="totalStudentsBadge" text="Total: 0 Students" styleClass="count-badge"/>
+                </HBox>
+                <Separator/>
+
+                <!-- Student Table -->
+                <TableView fx:id="studentTableView" VBox.vgrow="ALWAYS" styleClass="table-view">
+                    <columns>
+                        <TableColumn fx:id="colStudentId" text="Student ID" prefWidth="110"/>
+                        <TableColumn fx:id="colFullName" text="Full Name" prefWidth="160"/>
+                        <TableColumn fx:id="colEmail" text="Email" prefWidth="170"/>
+                        <TableColumn fx:id="colProgramme" text="Programme" prefWidth="180"/>
+                        <TableColumn fx:id="colRegistrationDate" text="Registered Date" prefWidth="140"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                    <placeholder>
+                        <Label text="No students registered yet. Fill the form to add one!" styleClass="empty-table-label"/>
+                    </placeholder>
+                </TableView>
+            </VBox>
+        </HBox>
+    </center>
+
+    <!-- BOTTOM STATUS BAR -->
+    <bottom>
+        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="status-bar">
+            <padding>
+                <Insets top="6" right="20" bottom="6" left="20"/>
+            </padding>
+            <Label fx:id="statusLabel" text="System Ready | Embedded H2 Database Connected" styleClass="status-text"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Services Desktop App - System Diagrams</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 40px; background-color: #f1f5f9; color: #1e293b; }
+    .header { background: white; padding: 25px 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 30px; border-left: 6px solid #2563eb; }
+    h1 { margin: 0 0 10px 0; color: #1e3a8a; }
+    .meta { color: #64748b; font-size: 14px; }
+    .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 35px; }
+    h2 { color: #1d4ed8; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-top: 0; }
+    .diagram-container { display: flex; justify-content: center; margin: 20px 0; }
+    svg { max-width: 100%; height: auto; }
+    pre { background: #0f172a; color: #e2e8f0; padding: 18px; border-radius: 8px; overflow-x: auto; font-size: 13px; line-height: 1.5; }
+    .badge { display: inline-block; background: #e0e7ff; color: #3730a3; padding: 4px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600; margin-right: 8px; }
+  </style>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'default' });
+  </script>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Student Services Desktop App — Architecture &amp; Sequence Diagrams</h1>
+    <div class="meta">
+      <span class="badge">ICT261 Unit 1</span>
+      <span class="badge">Mulungushi University</span>
+      <strong>Student:</strong> Isaac Miti (ID: 202509238) | <strong>Lecturer:</strong> Mr. E. Nyirenda
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>1. Layered Architecture Diagram (Vector SVG)</h2>
+    <p>Displays the strict one-way dependency flow and the error handling boundary for duplicate student IDs.</p>
+    <div class="diagram-container">
+      <img src="architecture_diagram.svg" alt="Architecture Diagram" style="max-width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px;" />
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>2. Register Student Sequence Diagram (Mermaid)</h2>
+    <p>Illustrates the interactive runtime flow between layers, including validation and duplicate check branches.</p>
+    <div class="mermaid">
+sequenceDiagram
+    autonumber
+    actor User as User (Administrator/Student)
+    participant View as RegisterView (JavaFX UI)
+    participant Ctrl as StudentController
+    participant Svc as StudentService
+    participant Repo as StudentRepository
+    participant DB as Embedded H2 Database
+
+    User->>View: Enters Student ID, Full Name, Email, Programme
+    User->>View: Clicks "Register Student"
+    View->>Ctrl: handleRegisterStudent(ActionEvent)
+    Ctrl->>Ctrl: Extract form values from text fields
+    Ctrl->>Svc: registerStudent(id, fullName, email, programme)
+    
+    rect rgb(255, 245, 238)
+    Note over Svc: 1. Input Validation
+    Svc->>Svc: validateInputs(id, fullName, email, programme)
+    alt Fields empty OR invalid email OR ID not 9 digits
+        Svc-->>Ctrl: throw ValidationException
+        Ctrl->>View: showAlert(WARNING, "Validation Error")
+    end
+    end
+
+    rect rgb(240, 248, 255)
+    Note over Svc,Repo: 2. Duplicate Check
+    Svc->>Repo: findById(studentId)
+    Repo->>DB: SELECT * FROM students WHERE id = ?
+    DB-->>Repo: ResultSet
+    Repo-->>Svc: Optional&lt;Student&gt;
+    end
+
+    alt Student ID already exists (Duplicate Error Path)
+        rect rgb(255, 235, 238)
+        Svc-->>Ctrl: throw DuplicateStudentException("ID 202509238 already exists")
+        Ctrl->>View: showAlert(ERROR, "Duplicate Student ID")
+        Note over View: Form values preserved; app stays alive
+        end
+    else Student ID is unique (Happy Path)
+        rect rgb(238, 255, 238)
+        Svc->>Repo: save(Student)
+        Repo->>DB: INSERT INTO students VALUES (...)
+        DB-->>Repo: Success
+        Repo-->>Svc: Student
+        Svc-->>Ctrl: Student
+        Ctrl->>Repo: findAll()
+        Repo-->>Ctrl: Updated student list
+        Ctrl->>View: update TableView & clearForm()
+        Ctrl->>View: showAlert(INFO, "Registered successfully")
+        end
+    end
+    </div>
+  </div>
+
+</body>
+</html>
