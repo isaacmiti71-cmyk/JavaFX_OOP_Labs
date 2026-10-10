@@ -1,0 +1,224 @@
+/* Stylesheet for Student Services Desktop App */
+/* Isaac Miti | 202509238 | ICT261 | Mr. E. Nyirenda */
+
+.root-pane {
+    -fx-background-color: #f1f5f9;
+    -fx-font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+}
+
+/* Header Bar */
+.header-bar {
+    -fx-background-color: #1e3a8a; /* Deep University Navy */
+    -fx-border-color: #172554;
+    -fx-border-width: 0 0 1 0;
+}
+
+.app-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.app-subtitle {
+    -fx-text-fill: #93c5fd;
+    -fx-font-size: 12px;
+}
+
+.university-badge {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 6 14;
+    -fx-background-radius: 20;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+/* Announcement Bar */
+.announcement-bar {
+    -fx-background-color: #fef3c7; /* Warm Amber */
+    -fx-border-color: #fde68a;
+    -fx-border-width: 0 0 1 0;
+}
+
+.announcement-text {
+    -fx-text-fill: #92400e;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+}
+
+/* Cards */
+.card-pane {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.04), 8, 0, 0, 2);
+}
+
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+.section-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #64748b;
+}
+
+/* Form Controls */
+.field-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #334155;
+}
+
+.helper-text {
+    -fx-font-size: 11px;
+    -fx-text-fill: #94a3b8;
+    -fx-font-style: italic;
+}
+
+.text-input {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8 10;
+    -fx-font-size: 13px;
+    -fx-text-fill: #0f172a;
+}
+
+.text-input:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #2563eb;
+    -fx-effect: dropshadow(three-pass-box, rgba(37, 99, 235, 0.2), 4, 0, 0, 0);
+}
+
+.combo-box {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 4 8;
+    -fx-font-size: 13px;
+}
+
+.combo-box:focused {
+    -fx-border-color: #2563eb;
+}
+
+/* Buttons */
+.button-primary {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 9 18;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.button-primary:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+.button-primary:pressed {
+    -fx-background-color: #1e40af;
+}
+
+.button-secondary {
+    -fx-background-color: #f1f5f9;
+    -fx-text-fill: #475569;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-padding: 9 16;
+    -fx-background-radius: 6;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6;
+    -fx-cursor: hand;
+}
+
+.button-secondary:hover {
+    -fx-background-color: #e2e8f0;
+    -fx-text-fill: #1e293b;
+}
+
+/* Count Badge */
+.count-badge {
+    -fx-background-color: #eff6ff;
+    -fx-text-fill: #1d4ed8;
+    -fx-border-color: #bfdbfe;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 4 12;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+/* TableView */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-padding: 8 6;
+}
+
+.table-view .column-header .label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #475569;
+    -fx-font-size: 12px;
+}
+
+.table-view .table-row-cell {
+    -fx-cell-size: 36px;
+    -fx-border-color: #f1f5f9;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #fafbfc;
+}
+
+.table-view .table-row-cell:even {
+    -fx-background-color: #ffffff;
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: #f0f7ff;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #dbeafe;
+    -fx-text-fill: #1e3a8a;
+}
+
+.empty-table-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #94a3b8;
+    -fx-font-style: italic;
+}
+
+/* Status Bar */
+.status-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1 0 0 0;
+}
+
+.status-text {
+    -fx-font-size: 11px;
+    -fx-text-fill: #64748b;
+}
